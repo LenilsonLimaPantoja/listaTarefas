@@ -5,6 +5,9 @@ import {
   MdOutlineCircle,
   MdCheckCircleOutline,
 } from "react-icons/md";
+import { AiFillGithub, AiFillLinkedin } from "react-icons/ai";
+import { DiReact } from "react-icons/di";
+import { FaSass } from "react-icons/fa";
 import { Alert } from "../components/Alert";
 export const Home = () => {
   const [tarefa, setTarefa] = React.useState("");
@@ -75,9 +78,40 @@ export const Home = () => {
     return Math.random().toString(36).substring(2, 9);
   };
 
+  //funcao para abrir outra pagina
+  const abrirPagina = (link) => {
+    window.open(link, "_blank");
+  };
+
   return (
     <div className="container">
       <div>
+        <div className="icones-topo">
+          <AiFillGithub
+            color="#24292f"
+            onClick={() =>
+              abrirPagina("https://github.com/LenilsonLimaPantoja/listaTarefas")
+            }
+          />
+          <AiFillLinkedin
+            color="#0a66c2"
+            onClick={() =>
+              abrirPagina(
+                "https://www.linkedin.com/in/lenilson-lima-pantoja-0909b0179/"
+              )
+            }
+          />
+          <DiReact
+            color="#61dafb"
+            onClick={() =>
+              abrirPagina("https://pt-br.reactjs.org/docs/getting-started.html")
+            }
+          />
+          <FaSass
+            color="#e91e63"
+            onClick={() => abrirPagina("https://sass-lang.com/")}
+          />
+        </div>
         <div className="cabecalho">
           <h2>Lista de Tarefas({tarefas?.length})</h2>
         </div>
