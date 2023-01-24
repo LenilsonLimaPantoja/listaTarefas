@@ -13,7 +13,7 @@ import { Alert } from "../components/Alert";
 export const Home = () => {
   const [tarefa, setTarefa] = React.useState("");
   const [tarefas, setTarefas] = React.useState([]);
-  const [filtro, setFiltro] = React.useState("");
+  const [filtro, setFiltro] = React.useState("2");
 
   //   adicionar tarefa
   const handleOnsubmit = (e) => {
@@ -42,22 +42,10 @@ export const Home = () => {
   //   buscar tarefas
   useEffect(() => {
     let tarefas2 = JSON.parse(localStorage.getItem("tarefas"));
-    tarefas2 = tarefas2.filter((item) => {
-      if (filtro === "") {
-        return item;
-      }
-      if (filtro === "1" && item.status === "1") {
-        return item;
-      }
-      if (filtro === "0" && item.status === "0") {
-        return item;
-      }
-    });
-
     if (tarefas2) {
       setTarefas(tarefas2.reverse());
     }
-  }, [tarefas.length, filtro]);
+  }, [tarefas.length]);
 
   //   remover tarefa
   const handleRemoverTarefa = (dado) => {
@@ -153,13 +141,11 @@ export const Home = () => {
             value={tarefa}
             onChange={(e) => setTarefa(e.target.value)}
           />
-          {tarefas?.length > 0 && (
-            <select value={filtro} onChange={(e) => setFiltro(e.target.value)}>
-              <option value="">Mostrar Todas</option>
-              <option value="0">Abertas</option>
-              <option value="1">Finalizadas</option>
-            </select>
-          )}
+          {/* <select>
+            <option value="2">Mostrar Todas</option>
+            <option value="0">Aberta</option>
+            <option value="1">Finalizada</option>
+          </select> */}
         </form>
 
         <div className="lista">
