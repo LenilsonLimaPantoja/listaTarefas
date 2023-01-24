@@ -153,11 +153,13 @@ export const Home = () => {
             value={tarefa}
             onChange={(e) => setTarefa(e.target.value)}
           />
-          <select value={filtro} onChange={(e) => setFiltro(e.target.value)}>
-            <option value="">Mostrar Todas</option>
-            <option value="0">Abertas</option>
-            <option value="1">Finalizadas</option>
-          </select>
+          {tarefas?.length > 0 && (
+            <select value={filtro} onChange={(e) => setFiltro(e.target.value)}>
+              <option value="">Mostrar Todas</option>
+              <option value="0">Abertas</option>
+              <option value="1">Finalizadas</option>
+            </select>
+          )}
         </form>
 
         <div className="lista">
