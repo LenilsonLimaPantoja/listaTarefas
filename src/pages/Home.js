@@ -5,18 +5,15 @@ import {
   MdOutlineCircle,
   MdCheckCircleOutline,
 } from "react-icons/md";
-import {
-  AiFillGithub,
-  AiFillLinkedin,
-  AiFillYoutube,
-} from "react-icons/ai";
-import {IoLogoWhatsapp} from "react-icons/io"
+import { AiFillGithub, AiFillLinkedin, AiFillYoutube } from "react-icons/ai";
+import { IoLogoWhatsapp } from "react-icons/io";
 import { DiReact } from "react-icons/di";
 import { FaSass } from "react-icons/fa";
 import { Alert } from "../components/Alert";
 export const Home = () => {
   const [tarefa, setTarefa] = React.useState("");
   const [tarefas, setTarefas] = React.useState([]);
+  const [filtro, setFiltro] = React.useState("");
 
   //   adicionar tarefa
   const handleOnsubmit = (e) => {
@@ -45,10 +42,22 @@ export const Home = () => {
   //   buscar tarefas
   useEffect(() => {
     let tarefas2 = JSON.parse(localStorage.getItem("tarefas"));
+    tarefas2 = tarefas2.filter((item) => {
+      if (filtro === "") {
+        return item;
+      }
+      if (filtro === "1" && item.status === "1") {
+        return item;
+      }
+      if (filtro === "0" && item.status === "0") {
+        return item;
+      }
+    });
+
     if (tarefas2) {
       setTarefas(tarefas2.reverse());
     }
-  }, [tarefas.length]);
+  }, [tarefas.length, filtro]);
 
   //   remover tarefa
   const handleRemoverTarefa = (dado) => {
@@ -111,9 +120,7 @@ export const Home = () => {
           <IoLogoWhatsapp
             color="#008069"
             onClick={() =>
-              abrirPagina(
-                "https://api.whatsapp.com/send?phone=5567982143134"
-              )
+              abrirPagina("https://api.whatsapp.com/send?phone=5567982143134")
             }
           />
           <AiFillYoutube
@@ -146,6 +153,11 @@ export const Home = () => {
             value={tarefa}
             onChange={(e) => setTarefa(e.target.value)}
           />
+          <select value={filtro} onChange={(e) => setFiltro(e.target.value)}>
+            <option value="">Mostrar Todas</option>
+            <option value="0">Abertas</option>
+            <option value="1">Finalizadas</option>
+          </select>
         </form>
 
         <div className="lista">
