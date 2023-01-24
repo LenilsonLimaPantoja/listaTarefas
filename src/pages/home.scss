@@ -64,14 +64,10 @@
                 color: #174c4f;
                 background-color: #fff;
                 border-radius: 5px;
-                transform: translateY(-100%);
+                transform: translateX(-100%);
                 animation-name: tarefa;
                 animation-duration: 1s;
                 animation-fill-mode: forwards;
-
-                &:nth-child(even) {
-                    transform: translateX(100%);
-                }
 
                 .finalizada {
                     text-decoration: line-through;
@@ -90,7 +86,7 @@
 
             @keyframes tarefa {
                 100% {
-                    transform: translateY(0);
+                    transform: translateX(0);
                 }
             }
         }
