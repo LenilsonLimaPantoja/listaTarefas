@@ -93,22 +93,22 @@ export const Home = () => {
               abrirPagina("https://github.com/LenilsonLimaPantoja/listaTarefas")
             }
           />
-          <AiFillLinkedin
-            color="#0a66c2"
+          <DiReact
+            color="#61dafb"
             onClick={() =>
-              abrirPagina(
-                "https://www.linkedin.com/in/lenilson-lima-pantoja-0909b0179/"
-              )
+              abrirPagina("https://pt-br.reactjs.org/docs/getting-started.html")
             }
           />
           <FaSass
             color="#e91e63"
             onClick={() => abrirPagina("https://sass-lang.com/")}
           />
-          <DiReact
-            color="#61dafb"
+          <AiFillLinkedin
+            color="#0a66c2"
             onClick={() =>
-              abrirPagina("https://pt-br.reactjs.org/docs/getting-started.html")
+              abrirPagina(
+                "https://www.linkedin.com/in/lenilson-lima-pantoja-0909b0179/"
+              )
             }
           />
           <AiFillYoutube
