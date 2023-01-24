@@ -128,31 +128,40 @@ export const Home = () => {
         </form>
 
         <div className="lista">
-          {tarefas?.map((item, index) => (
-            <div className="tarefa" key={index}>
-              <span className={item.status === "1" ? "finalizada" : ""}>
-                {item.tarefa}
-              </span>
-              <span className="icones">
-                {item.status === "1" ? (
-                  <MdCheckCircleOutline
-                    color="green"
-                    onClick={() => handleFinalizarTarefa(item)}
-                  />
-                ) : (
-                  <MdOutlineCircle
-                    color="green"
-                    onClick={() => handleFinalizarTarefa(item)}
-                  />
-                )}
+          {tarefas
+            ?.filter((item) => {
+              if (tarefa === "") {
+                return item;
+              }
+              if (item.tarefa.toLowerCase().includes(tarefa.toLowerCase())) {
+                return item;
+              }
+            })
+            .map((item, index) => (
+              <div className="tarefa" key={index}>
+                <span className={item.status === "1" ? "finalizada" : ""}>
+                  {item.tarefa}
+                </span>
+                <span className="icones">
+                  {item.status === "1" ? (
+                    <MdCheckCircleOutline
+                      color="green"
+                      onClick={() => handleFinalizarTarefa(item)}
+                    />
+                  ) : (
+                    <MdOutlineCircle
+                      color="green"
+                      onClick={() => handleFinalizarTarefa(item)}
+                    />
+                  )}
 
-                <MdRemoveCircleOutline
-                  color="red"
-                  onClick={() => handleRemoverTarefa(item)}
-                />
-              </span>
-            </div>
-          ))}
+                  <MdRemoveCircleOutline
+                    color="red"
+                    onClick={() => handleRemoverTarefa(item)}
+                  />
+                </span>
+              </div>
+            ))}
         </div>
       </div>
     </div>
