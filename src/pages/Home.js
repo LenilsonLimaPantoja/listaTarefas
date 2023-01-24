@@ -5,7 +5,7 @@ import {
   MdOutlineCircle,
   MdCheckCircleOutline,
 } from "react-icons/md";
-import { AiFillGithub, AiFillLinkedin } from "react-icons/ai";
+import { AiFillGithub, AiFillLinkedin, AiFillYoutube } from "react-icons/ai";
 import { DiReact } from "react-icons/di";
 import { FaSass } from "react-icons/fa";
 import { Alert } from "../components/Alert";
@@ -101,15 +101,23 @@ export const Home = () => {
               )
             }
           />
+          <FaSass
+            color="#e91e63"
+            onClick={() => abrirPagina("https://sass-lang.com/")}
+          />
           <DiReact
             color="#61dafb"
             onClick={() =>
               abrirPagina("https://pt-br.reactjs.org/docs/getting-started.html")
             }
           />
-          <FaSass
-            color="#e91e63"
-            onClick={() => abrirPagina("https://sass-lang.com/")}
+          <AiFillYoutube
+            color="#ff0000"
+            onClick={() =>
+              abrirPagina(
+                "https://www.youtube.com/channel/UChMSG90W9Bz3ozejZe6o2pA"
+              )
+            }
           />
         </div>
         <div className="cabecalho">
