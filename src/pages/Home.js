@@ -5,7 +5,12 @@ import {
   MdOutlineCircle,
   MdCheckCircleOutline,
 } from "react-icons/md";
-import { AiFillGithub, AiFillLinkedin, AiFillYoutube } from "react-icons/ai";
+import {
+  AiFillGithub,
+  AiFillLinkedin,
+  AiFillYoutube,
+} from "react-icons/ai";
+import {IoLogoWhatsapp} from "react-icons/io"
 import { DiReact } from "react-icons/di";
 import { FaSass } from "react-icons/fa";
 import { Alert } from "../components/Alert";
@@ -103,11 +108,11 @@ export const Home = () => {
             color="#e91e63"
             onClick={() => abrirPagina("https://sass-lang.com/")}
           />
-          <AiFillLinkedin
-            color="#0a66c2"
+          <IoLogoWhatsapp
+            color="#008069"
             onClick={() =>
               abrirPagina(
-                "https://www.linkedin.com/in/lenilson-lima-pantoja-0909b0179/"
+                "https://api.whatsapp.com/send?phone=5567982143134"
               )
             }
           />
@@ -116,6 +121,14 @@ export const Home = () => {
             onClick={() =>
               abrirPagina(
                 "https://www.youtube.com/channel/UChMSG90W9Bz3ozejZe6o2pA"
+              )
+            }
+          />
+          <AiFillLinkedin
+            color="#0a66c2"
+            onClick={() =>
+              abrirPagina(
+                "https://www.linkedin.com/in/lenilson-lima-pantoja-0909b0179/"
               )
             }
           />
