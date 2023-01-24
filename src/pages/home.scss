@@ -64,9 +64,9 @@
                 color: #174c4f;
                 background-color: #fff;
                 border-radius: 5px;
-                transform: translateX(-100%);
+                transform: scaleY(-1.5);
                 animation-name: tarefa;
-                animation-duration: 1s;
+                animation-duration: .5s;
                 animation-fill-mode: forwards;
 
                 .finalizada {

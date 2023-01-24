@@ -15,13 +15,23 @@ export const Home = () => {
     e.preventDefault();
     let formValues = new FormData(e.target);
     let dados = Object.fromEntries(formValues);
+
+    let existeTarefaAberta = tarefas.filter(
+      (item) => item.status === "0" && item.tarefa === dados.tarefa
+    );
+    if (existeTarefaAberta.length > 0) {
+      return Alert("A tarefa já existe e está aberta");
+    }
+
     if (dados?.tarefa === "") {
       return Alert("Você deve informar uma tarefa");
     }
     setTarefas([...tarefas, dados]);
-    localStorage.setItem("tarefas", JSON.stringify([...tarefas.reverse(), dados]));
+    localStorage.setItem(
+      "tarefas",
+      JSON.stringify([...tarefas.reverse(), dados])
+    );
     setTarefa("");
-    // Alert("Tarefa adicionada com sucesso");
   };
 
   //   buscar tarefas
@@ -39,7 +49,7 @@ export const Home = () => {
     }
     let tarefa2 = tarefas.filter((item) => item.id !== dado.id);
     setTarefas(tarefa2);
-    localStorage.setItem("tarefas", JSON.stringify(tarefa2));
+    localStorage.setItem("tarefas", JSON.stringify(tarefa2?.reverse()));
     Alert("Tarefa removida com sucesso");
   };
 
@@ -69,7 +79,7 @@ export const Home = () => {
     <div className="container">
       <div>
         <div className="cabecalho">
-          <h2>Lista de Tarefas</h2>
+          <h2>Lista de Tarefas({tarefas?.length})</h2>
         </div>
         <form onSubmit={handleOnsubmit}>
           <input type="hidden" value={gerarId()} name="id" />
