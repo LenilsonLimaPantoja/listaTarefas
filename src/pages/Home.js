@@ -17,13 +17,14 @@ export const Home = () => {
   const [tarefa, setTarefa] = React.useState("");
   const [tarefas, setTarefas] = React.useState([]);
   const [tema, setTema] = React.useState(true);
-  // const [filtro, setFiltro] = React.useState("2");
+  const [filtro, setFiltro] = React.useState("2");
 
   //   adicionar tarefa
   const handleOnsubmit = (e) => {
     e.preventDefault();
     let formValues = new FormData(e.target);
     let dados = Object.fromEntries(formValues);
+    let trfas = JSON.parse(localStorage.getItem("tarefas"));
 
     //limitar a tamanho da tarefa em 25 caracteres
     if (dados.tarefa.length > 25) {
@@ -34,7 +35,7 @@ export const Home = () => {
       );
     }
 
-    let existeTarefaAberta = tarefas.filter(
+    let existeTarefaAberta = trfas.filter(
       (item) => item.status === "0" && item.tarefa === dados.tarefa
     );
     if (existeTarefaAberta.length > 0) {
@@ -44,28 +45,33 @@ export const Home = () => {
     if (dados?.tarefa === "") {
       return Alert("Você deve informar uma tarefa");
     }
-    setTarefas([...tarefas, dados]);
+    setTarefas([...trfas, dados]);
     localStorage.setItem(
       "tarefas",
-      JSON.stringify([...tarefas.reverse(), dados])
+      JSON.stringify([...trfas.reverse(), dados])
     );
     setTarefa("");
+    setFiltro("2");
   };
 
   //   buscar tarefas
   useEffect(() => {
     let tarefas2 = JSON.parse(localStorage.getItem("tarefas"));
+    if (filtro !== "2") {
+      tarefas2 = tarefas2?.filter((item) => item.status === filtro);
+    }
     if (tarefas2) {
       setTarefas(tarefas2.reverse());
     }
-  }, [tarefas.length]);
+  }, [tarefas, filtro]);
 
   //   remover tarefa
   const handleRemoverTarefa = (dado) => {
     if (dado.status === "1") {
       return Alert("Você não pode remover uma tarefa finalizada");
     }
-    let tarefa2 = tarefas?.filter((item) => item.id !== dado.id);
+    let trfas = JSON.parse(localStorage.getItem("tarefas"));
+    let tarefa2 = trfas?.filter((item) => item.id !== dado.id);
     setTarefas(tarefa2);
     localStorage.setItem("tarefas", JSON.stringify(tarefa2?.reverse()));
     Alert("Tarefa (" + dado.tarefa + ") foi removida com sucesso");
@@ -76,10 +82,10 @@ export const Home = () => {
     let tarefa2 = tarefas?.filter((item) => {
       if (item.id === dado.id) {
         if (item.status === "1") {
-          Alert("Tarefa ("+dado.tarefa+") reaberta com sucesso");
+          Alert("Tarefa (" + dado.tarefa + ") foi reaberta com sucesso");
           return (item.status = "0");
         }
-        Alert("Tarefa ("+dado.tarefa+") finalizada com sucesso");
+        Alert("Tarefa (" + dado.tarefa + ") foi finalizada com sucesso");
         return (item.status = "1");
       }
       return item;
@@ -174,14 +180,15 @@ export const Home = () => {
               onChange={(e) => setTarefa(e.target.value)}
             />
             <button>
+              {filtro}
               <MdAddCircleOutline type="submit" />
             </button>
           </label>
-          {/* <select>
+          <select value={filtro} onChange={(e) => setFiltro(e.target.value)}>
             <option value="2">Mostrar Todas</option>
             <option value="0">Aberta</option>
             <option value="1">Finalizada</option>
-          </select> */}
+          </select>
         </form>
 
         <div className="lista">
@@ -197,7 +204,7 @@ export const Home = () => {
             .map((item, index) => (
               <div className="tarefa" key={index}>
                 <p className={item.status === "1" ? "finalizada" : ""}>
-                  {item.tarefa}
+                  {index + 1} - {item.tarefa}
                 </p>
                 <p className="icones">
                   {item.status === "1" ? (
