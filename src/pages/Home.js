@@ -184,11 +184,13 @@ export const Home = () => {
               <MdAddCircleOutline type="submit" />
             </button>
           </label>
-          <select value={filtro} onChange={(e) => setFiltro(e.target.value)}>
-            <option value="2">Mostrar Todas</option>
-            <option value="0">Aberta</option>
-            <option value="1">Finalizada</option>
-          </select>
+          {tarefas?.length > 0 && (
+            <select value={filtro} onChange={(e) => setFiltro(e.target.value)}>
+              <option value="2">Mostrar Todas</option>
+              <option value="0">Aberta</option>
+              <option value="1">Finalizada</option>
+            </select>
+          )}
         </form>
 
         <div className="lista">
