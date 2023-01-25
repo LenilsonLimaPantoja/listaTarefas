@@ -180,7 +180,6 @@ export const Home = () => {
               onChange={(e) => setTarefa(e.target.value)}
             />
             <button>
-              {filtro}
               <MdAddCircleOutline type="submit" />
             </button>
           </label>
