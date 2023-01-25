@@ -27,14 +27,18 @@ export const Home = () => {
 
     //limitar a tamanho da tarefa em 25 caracteres
     if (dados.tarefa.length > 25) {
-      return Alert("A tarefa deve ter no máximo 25 caracteres, você digitou " + dados.tarefa.length + " caracteres");
+      return Alert(
+        "A tarefa deve ter no máximo 25 caracteres, você digitou " +
+          dados.tarefa.length +
+          " caracteres"
+      );
     }
 
     let existeTarefaAberta = tarefas.filter(
       (item) => item.status === "0" && item.tarefa === dados.tarefa
     );
     if (existeTarefaAberta.length > 0) {
-      return Alert("A tarefa já existe e está aberta");
+      return Alert("A tarefa (" + dados.tarefa + ") já existe e está aberta");
     }
 
     if (dados?.tarefa === "") {
@@ -64,7 +68,7 @@ export const Home = () => {
     let tarefa2 = tarefas?.filter((item) => item.id !== dado.id);
     setTarefas(tarefa2);
     localStorage.setItem("tarefas", JSON.stringify(tarefa2?.reverse()));
-    Alert("Tarefa removida com sucesso");
+    Alert("Tarefa (" + dado.tarefa + ") foi removida com sucesso");
   };
 
   //   finalizar tarefa
@@ -72,10 +76,10 @@ export const Home = () => {
     let tarefa2 = tarefas?.filter((item) => {
       if (item.id === dado.id) {
         if (item.status === "1") {
-          Alert("Tarefa reaberta com sucesso");
+          Alert("Tarefa ("+dado.tarefa+") reaberta com sucesso");
           return (item.status = "0");
         }
-        Alert("Tarefa finalizada com sucesso");
+        Alert("Tarefa ("+dado.tarefa+") finalizada com sucesso");
         return (item.status = "1");
       }
       return item;
