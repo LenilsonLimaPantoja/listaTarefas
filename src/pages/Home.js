@@ -25,6 +25,11 @@ export const Home = () => {
     let formValues = new FormData(e.target);
     let dados = Object.fromEntries(formValues);
 
+    //limitar a tamanho da tarefa em 25 caracteres
+    if (dados.tarefa.length > 25) {
+      return Alert("A tarefa deve ter no máximo 25 caracteres, você digitou " + dados.tarefa.length + " caracteres");
+    }
+
     let existeTarefaAberta = tarefas.filter(
       (item) => item.status === "0" && item.tarefa === dados.tarefa
     );
@@ -187,10 +192,10 @@ export const Home = () => {
             })
             .map((item, index) => (
               <div className="tarefa" key={index}>
-                <span className={item.status === "1" ? "finalizada" : ""}>
+                <p className={item.status === "1" ? "finalizada" : ""}>
                   {item.tarefa}
-                </span>
-                <span className="icones">
+                </p>
+                <p className="icones">
                   {item.status === "1" ? (
                     <MdCheckCircleOutline
                       color="green"
@@ -207,7 +212,7 @@ export const Home = () => {
                     color="red"
                     onClick={() => handleRemoverTarefa(item)}
                   />
-                </span>
+                </p>
               </div>
             ))}
         </div>
