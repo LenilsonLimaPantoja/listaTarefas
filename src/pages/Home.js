@@ -18,13 +18,13 @@ export const Home = () => {
   const [tarefas, setTarefas] = React.useState([]);
   const [tema, setTema] = React.useState(true);
   const [filtro, setFiltro] = React.useState("2");
+  let trfas = JSON.parse(localStorage.getItem("tarefas"));
 
   //   adicionar tarefa
-  const handleOnsubmit = (e) => {
+  const handleOnsubmit = async (e) => {
     e.preventDefault();
     let formValues = new FormData(e.target);
     let dados = Object.fromEntries(formValues);
-    let trfas = JSON.parse(localStorage.getItem("tarefas"));
 
     //limitar a tamanho da tarefa em 25 caracteres
     if (dados.tarefa.length > 25) {
@@ -45,42 +45,40 @@ export const Home = () => {
     if (dados?.tarefa === "") {
       return Alert("Você deve informar uma tarefa");
     }
-    setTarefas([...trfas, dados]);
+
     localStorage.setItem(
       "tarefas",
       JSON.stringify([...trfas.reverse(), dados])
     );
+    setTarefas([...trfas, dados]);
     setTarefa("");
     setFiltro("2");
   };
 
   //   buscar tarefas
   useEffect(() => {
-    let tarefas2 = JSON.parse(localStorage.getItem("tarefas"));
     if (filtro !== "2") {
-      tarefas2 = tarefas2?.filter((item) => item.status === filtro);
+      trfas = trfas?.filter((item) => item.status === filtro);
     }
-    if (tarefas2) {
-      setTarefas(tarefas2.reverse());
+    if (trfas) {
+      setTarefas(trfas.reverse());
     }
-  }, [tarefas, filtro]);
+  }, [tarefas.length, filtro]);
 
   //   remover tarefa
   const handleRemoverTarefa = (dado) => {
     if (dado.status === "1") {
       return Alert("Você não pode remover uma tarefa finalizada");
     }
-    let trfas = JSON.parse(localStorage.getItem("tarefas"));
-    let tarefa2 = trfas?.filter((item) => item.id !== dado.id);
-    setTarefas(tarefa2);
-    localStorage.setItem("tarefas", JSON.stringify(tarefa2?.reverse()));
+    let tarefaRemover = trfas?.filter((item) => item.id !== dado.id);
+    localStorage.setItem("tarefas", JSON.stringify(tarefaRemover?.reverse()));
+    setTarefas(tarefaRemover);
     Alert("Tarefa (" + dado.tarefa + ") foi removida com sucesso");
   };
 
-  //   finalizar tarefa
+  // finalizar tarefa
   const handleFinalizarTarefa = (dado) => {
-    let trfas = JSON.parse(localStorage.getItem("tarefas"));
-    let tarefa2 = trfas?.filter((item) => {
+    let tarefaFinalizar = trfas?.filter((item) => {
       if (item.id === dado.id) {
         if (item.status === "1") {
           Alert("Tarefa (" + dado.tarefa + ") foi reaberta com sucesso");
@@ -91,8 +89,8 @@ export const Home = () => {
       }
       return item;
     });
-    setTarefas(tarefa2);
-    localStorage.setItem("tarefas", JSON.stringify(tarefa2));
+    localStorage.setItem("tarefas", JSON.stringify(tarefaFinalizar));
+    setTarefas(tarefaFinalizar);
   };
 
   //gerar id
@@ -206,7 +204,7 @@ export const Home = () => {
                 <p className={item.status === "1" ? "finalizada" : ""}>
                   {index + 1} - {item.tarefa}
                 </p>
-                <p className="icones">
+                <span className="icones">
                   {item.status === "1" ? (
                     <MdCheckCircleOutline
                       color="green"
@@ -223,7 +221,7 @@ export const Home = () => {
                     color="red"
                     onClick={() => handleRemoverTarefa(item)}
                   />
-                </p>
+                </span>
               </div>
             ))}
         </div>
