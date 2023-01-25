@@ -4,6 +4,9 @@ import {
   MdRemoveCircleOutline,
   MdOutlineCircle,
   MdCheckCircleOutline,
+  MdAddCircleOutline,
+  MdLightMode,
+  MdDarkMode,
 } from "react-icons/md";
 import { AiFillGithub, AiFillLinkedin, AiFillYoutube } from "react-icons/ai";
 import { IoLogoWhatsapp } from "react-icons/io";
@@ -13,7 +16,8 @@ import { Alert } from "../components/Alert";
 export const Home = () => {
   const [tarefa, setTarefa] = React.useState("");
   const [tarefas, setTarefas] = React.useState([]);
-  const [filtro, setFiltro] = React.useState("2");
+  const [tema, setTema] = React.useState(true);
+  // const [filtro, setFiltro] = React.useState("2");
 
   //   adicionar tarefa
   const handleOnsubmit = (e) => {
@@ -52,7 +56,7 @@ export const Home = () => {
     if (dado.status === "1") {
       return Alert("Você não pode remover uma tarefa finalizada");
     }
-    let tarefa2 = tarefas.filter((item) => item.id !== dado.id);
+    let tarefa2 = tarefas?.filter((item) => item.id !== dado.id);
     setTarefas(tarefa2);
     localStorage.setItem("tarefas", JSON.stringify(tarefa2?.reverse()));
     Alert("Tarefa removida com sucesso");
@@ -60,7 +64,7 @@ export const Home = () => {
 
   //   finalizar tarefa
   const handleFinalizarTarefa = (dado) => {
-    let tarefa2 = tarefas.filter((item) => {
+    let tarefa2 = tarefas?.filter((item) => {
       if (item.id === dado.id) {
         if (item.status === "1") {
           Alert("Tarefa reaberta com sucesso");
@@ -86,8 +90,22 @@ export const Home = () => {
   };
 
   return (
-    <div className="container">
+    <div className={tema ? "container dark" : "container light"}>
       <div>
+        <div className="tema">
+          {tema ? (
+            <MdDarkMode
+              onClick={() => setTema(!tema)}
+              color={tema ? "#fff" : "#6464f8"}
+            />
+          ) : (
+            <MdLightMode
+              onClick={() => setTema(!tema)}
+              color={tema ? "#fff" : "#6464f8"}
+            />
+          )}
+          <p>{tema ? "dark" : "light"}</p>
+        </div>
         <div className="icones-topo">
           <AiFillGithub
             color="#24292f"
@@ -128,19 +146,28 @@ export const Home = () => {
             }
           />
         </div>
-        <div className="cabecalho">
+        <div
+          className={
+            tema ? "cabecalho cabecalho-dark" : "cabecalho cabecalho-light"
+          }
+        >
           <h2>Lista de Tarefas({tarefas?.length})</h2>
         </div>
         <form onSubmit={handleOnsubmit}>
           <input type="hidden" value={gerarId()} name="id" />
           <input type="hidden" value="0" name="status" />
-          <input
-            type="text"
-            placeholder="Informe a tarefa aqui"
-            name="tarefa"
-            value={tarefa}
-            onChange={(e) => setTarefa(e.target.value)}
-          />
+          <label className="input">
+            <input
+              type="text"
+              placeholder="Informe a tarefa aqui"
+              name="tarefa"
+              value={tarefa}
+              onChange={(e) => setTarefa(e.target.value)}
+            />
+            <button>
+              <MdAddCircleOutline type="submit" />
+            </button>
+          </label>
           {/* <select>
             <option value="2">Mostrar Todas</option>
             <option value="0">Aberta</option>

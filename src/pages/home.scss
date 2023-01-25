@@ -5,17 +5,42 @@
     font-family: 'Courier New', Courier, monospace;
 }
 
+.dark {
+    background-color: #6464f8;
+    color: #fff;
+}
+
+.light {
+    background-color: #fff;
+    color: #6464f8;
+}
+
 .container {
     max-width: 100vw;
     min-height: 100vh;
     display: flex;
     justify-content: center;
-    background-color: #6464f8;
     align-items: center;
+    transition: 2s;
 
     div {
         padding: 10px;
         width: 520px;
+
+        .tema {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 50px;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            font-weight: bold;
+
+            svg {
+                font-size: 50px;
+                cursor: pointer;
+            }
+        }
 
         .icones-topo {
             display: flex;
@@ -31,6 +56,16 @@
             }
         }
 
+        .cabecalho-dark {
+            color: #fff;
+            border-bottom: solid 1px #fff;
+        }
+
+        .cabecalho-light {
+            color: #6464f8;
+            border-bottom: solid 1px #6464f8;
+        }
+
         .cabecalho {
             width: 100%;
             margin-top: 10px;
@@ -38,15 +73,14 @@
             text-transform: uppercase;
             display: flex;
             justify-content: center;
-            color: #fff;
-            border-bottom: solid 1px #fff;
         }
 
         form {
             padding: 0;
 
             input,
-            select {
+            select,
+            .input {
                 width: 100%;
                 height: 50px;
                 padding: 0 10px;
@@ -55,6 +89,22 @@
                 border: none;
                 border-radius: 5px;
                 margin-bottom: 10px;
+                display: flex;
+                background-color: #e8f0fd;
+
+                button {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background-color: transparent;
+                    border: none;
+                    cursor: pointer;
+
+                    svg {
+                        font-size: 30px;
+                        color: green;
+                    }
+                }
 
                 &:nth-child(even) {
                     margin-bottom: 0;
@@ -63,6 +113,13 @@
                 &:focus {
                     outline: none;
                 }
+            }
+
+            .input {
+                padding: 0;
+                padding-right: 10px;
+                border: solid 1px #6464f8;
+                height: 52px;
             }
         }
 
@@ -74,7 +131,7 @@
                 width: 100%;
                 padding: 10px;
                 margin-top: 10px;
-                height: 50px;
+                height: 52px;
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
@@ -88,6 +145,7 @@
                 animation-name: tarefa;
                 animation-duration: .5s;
                 animation-fill-mode: forwards;
+                border: solid 1px #6464f8;
 
                 .finalizada {
                     text-decoration: line-through;
