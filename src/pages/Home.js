@@ -79,7 +79,8 @@ export const Home = () => {
 
   //   finalizar tarefa
   const handleFinalizarTarefa = (dado) => {
-    let tarefa2 = tarefas?.filter((item) => {
+    let trfas = JSON.parse(localStorage.getItem("tarefas"));
+    let tarefa2 = trfas?.filter((item) => {
       if (item.id === dado.id) {
         if (item.status === "1") {
           Alert("Tarefa (" + dado.tarefa + ") foi reaberta com sucesso");
