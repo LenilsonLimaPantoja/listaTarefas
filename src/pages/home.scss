@@ -92,6 +92,10 @@
                 display: flex;
                 background-color: #e8f0fd;
 
+                &:nth-child(even) {
+                    border: solid 1px #6464f8;
+                }
+
                 button {
                     display: flex;
                     justify-content: center;
