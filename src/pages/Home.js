@@ -18,7 +18,7 @@ export const Home = () => {
   const [tarefas, setTarefas] = React.useState([]);
   const [tema, setTema] = React.useState(localStorage.getItem("tema") === "true" ? true : false);
   const [filtro, setFiltro] = React.useState("2");
-  let trfas = JSON.parse(localStorage.getItem("tarefas"));
+  let trfas = JSON.parse(localStorage.getItem("tarefas") === null ? "[]" : localStorage.getItem("tarefas"));
 
   //   adicionar tarefa
   const handleOnsubmit = async (e) => {
@@ -27,18 +27,18 @@ export const Home = () => {
     let dados = Object.fromEntries(formValues);
 
     //limitar a tamanho da tarefa em 25 caracteres
-    if (dados.tarefa.length > 25) {
+    if (dados.tarefa?.length > 25) {
       return Alert(
         "A tarefa deve ter no máximo 25 caracteres, você digitou " +
-          dados.tarefa.length +
+          dados.tarefa?.length +
           " caracteres"
       );
     }
 
-    let existeTarefaAberta = trfas.filter(
+    let existeTarefaAberta = trfas?.filter(
       (item) => item.status === "0" && item.tarefa === dados.tarefa
     );
-    if (existeTarefaAberta.length > 0) {
+    if (existeTarefaAberta?.length > 0) {
       return Alert("A tarefa (" + dados.tarefa + ") já existe e está aberta");
     }
 
@@ -48,7 +48,7 @@ export const Home = () => {
 
     localStorage.setItem(
       "tarefas",
-      JSON.stringify([...trfas.reverse(), dados])
+      JSON.stringify([...trfas?.reverse(), dados])
     );
     setTarefas([...trfas, dados]);
     setTarefa("");
@@ -61,9 +61,9 @@ export const Home = () => {
       trfas = trfas?.filter((item) => item.status === filtro);
     }
     if (trfas) {
-      setTarefas(trfas.reverse());
+      setTarefas(trfas?.reverse());
     }
-  }, [tarefas.length, filtro]);
+  }, [tarefas?.length, filtro]);
 
   //   remover tarefa
   const handleRemoverTarefa = (dado) => {
