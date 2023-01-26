@@ -16,7 +16,7 @@ import { Alert } from "../components/Alert";
 export const Home = () => {
   const [tarefa, setTarefa] = React.useState("");
   const [tarefas, setTarefas] = React.useState([]);
-  const [tema, setTema] = React.useState(true);
+  const [tema, setTema] = React.useState(localStorage.getItem("tema") === "true" ? true : false);
   const [filtro, setFiltro] = React.useState("2");
   let trfas = JSON.parse(localStorage.getItem("tarefas"));
 
@@ -103,18 +103,22 @@ export const Home = () => {
     window.open(link, "_blank");
   };
 
+  const handleTema = () => {
+    setTema(!tema);
+    localStorage.setItem("tema", !tema);
+  };
   return (
     <div className={tema ? "container dark" : "container light"}>
       <div>
         <div className="tema">
           {tema ? (
             <MdDarkMode
-              onClick={() => setTema(!tema)}
+              onClick={handleTema}
               color={tema ? "#fff" : "#6464f8"}
             />
           ) : (
             <MdLightMode
-              onClick={() => setTema(!tema)}
+              onClick={handleTema}
               color={tema ? "#fff" : "#6464f8"}
             />
           )}
