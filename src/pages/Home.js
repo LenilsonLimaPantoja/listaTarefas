@@ -73,6 +73,7 @@ export const Home = () => {
     let tarefaRemover = trfas?.filter((item) => item.id !== dado.id);
     localStorage.setItem("tarefas", JSON.stringify(tarefaRemover?.reverse()));
     setTarefas(tarefaRemover);
+    setFiltro("2");
     Alert("Tarefa (" + dado.tarefa + ") foi removida com sucesso");
   };
 
