@@ -108,21 +108,21 @@ export const Home = () => {
     localStorage.setItem("tema", !tema);
   };
   return (
-    <div className={tema ? "container dark" : "container light"}>
+    <div className={!tema ? "container dark" : "container light"}>
       <div>
         <div className="tema">
-          {tema ? (
+          {!tema ? (
             <MdDarkMode
               onClick={handleTema}
-              color={tema ? "#fff" : "#6464f8"}
+              color={!tema ? "#fff" : "#6464f8"}
             />
           ) : (
             <MdLightMode
               onClick={handleTema}
-              color={tema ? "#fff" : "#6464f8"}
+              color={!tema ? "#fff" : "#6464f8"}
             />
           )}
-          <p>{tema ? "dark" : "light"}</p>
+          <p>{!tema ? "dark" : "light"}</p>
         </div>
         <div className="icones-topo">
           <AiFillGithub
@@ -166,7 +166,7 @@ export const Home = () => {
         </div>
         <div
           className={
-            tema ? "cabecalho cabecalho-dark" : "cabecalho cabecalho-light"
+            !tema ? "cabecalho cabecalho-dark" : "cabecalho cabecalho-light"
           }
         >
           <h2>Lista de Tarefas({tarefas?.length})</h2>
